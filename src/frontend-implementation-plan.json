@@ -1,0 +1,43 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Mount TanStack Router from App and add initial-render error fallback",
+  "requirements": [
+    {
+      "id": "REQ-25",
+      "summary": "Replace the null placeholder App with an application shell that mounts TanStack Router using the existing routeTree so all defined routes render without changing main.tsx.",
+      "acceptanceCriteria": [
+        "Visiting the deployed site no longer shows a blank/white screen.",
+        "`frontend/src/main.tsx` continues to render `<App />`, and `App` now renders the TanStack Router provider wired to `frontend/src/routeTree.tsx`.",
+        "Direct navigation to `/`, `/menu`, `/about`, `/contact`, `/signup`, and `/checkout` renders the corresponding page content."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Implement App as the real runtime entry by creating a TanStack Router instance from the existing `routeTree` and rendering it via the TanStack Router provider so routes (Home, Menu, About, Contact, Signup, Checkout) render when `main.tsx` mounts `<App />`. Keep `frontend/src/main.tsx` unchanged."
+        }
+      ]
+    },
+    {
+      "id": "REQ-26",
+      "summary": "Add a minimal, user-friendly fallback UI for runtime errors during initial render (including router initialization) to avoid a blank screen.",
+      "acceptanceCriteria": [
+        "If an error occurs during initial render, the UI displays an English message indicating something went wrong and instructing the user to refresh the page.",
+        "The fallback renders instead of a blank/white screen."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/system/RenderErrorBoundary.tsx",
+          "operation": "create",
+          "description": "Create a small React error boundary component that renders a minimal English error message and a clear instruction to refresh the page when a render error is caught (suitable for protecting initial render and router initialization)."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wrap the router mount with the new RenderErrorBoundary and also guard router initialization so that if router creation fails before children render, App still returns the same friendly fallback message instead of rendering null/white screen."
+        }
+      ]
+    }
+  ]
+}

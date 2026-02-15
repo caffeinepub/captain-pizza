@@ -1,0 +1,24 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-15T09:50:39.083Z",
+  "summary": "REQ-25 and REQ-26 appear to be implemented by updating `frontend/src/App.tsx` to mount TanStack Router using the existing `routeTree` and by adding a runtime render error fallback via a new `RenderErrorBoundary` (plus an inline fallback when router creation fails). No changes to immutable `frontend/src/main.tsx` are shown in the modified-files list.",
+  "missing_requirements": [],
+  "hallucinated_features": [
+    {
+      "description": "Adds a prominent warning emoji/icon and a \"Refresh Page\" button in the error fallback UI (beyond the minimal English error + refresh instruction requirement).",
+      "reason": "REQ-26 asks for a minimal English message instructing the user to refresh, but does not request additional UI elements like an icon or a dedicated refresh button.",
+      "evidence": [
+        "frontend/src/components/system/RenderErrorBoundary.tsx",
+        "frontend/src/App.tsx"
+      ]
+    }
+  ],
+  "confidence": 0.86,
+  "changed_files": [
+    "frontend-file-summaries.txt",
+    "frontend/src/App.tsx",
+    "frontend/src/components/system/RenderErrorBoundary.tsx",
+    "project_state.json"
+  ]
+}

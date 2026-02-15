@@ -1,0 +1,297 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 13,
+  "summary": "Build a multi-page website for \"Captain Pizza\" with separate pages (Home, Menu, About, Contact, Signup/Login, Cart/Checkout), including add-to-cart + checkout where users choose WhatsApp (send full order + customer details to owner) or Zomato (redirect), plus AI-generated item images and an updated logo.",
+  "architectural_notes": [
+    "Set Captain Pizza Zomato order URL to https://www.zomato.com/ncr/captain-pizza-1-karawal-nagar-new-delhi/order (keep configurable in one place).",
+    "Checkout should offer a single selection between WhatsApp vs Zomato fulfillment; WhatsApp path generates a prefilled message containing full checkout details for the owner’s WhatsApp number (to be provided).",
+    "Update Contact/Location details: Address = \"Oppo, Rajmandir Hyper Market, F-11, Main Road, Block D, Dayalpur, Biharipur, Delhi, 110090\"; Hours = \"Open · Closes 10 pm\"; Phone = \"7725895804\".",
+    "Set `siteConfig.whatsappNumber` (owner/store WhatsApp) to 7725895804.",
+    "WhatsApp checkout message should be formatted with a clear \"*ORDER DETAILS:*\" header and include customer address + full cart/menu items with names/variants/add-ons/qty/unit price/line totals and a \"*BILL SUMMARY:*\" section (Subtotal, Delivery, Total), using a similar structure to the provided example (not a verbatim copy).",
+    "Site should be multi-page (not a single long scrolling page), with distinct routes/pages for Home, Menu, About, Contact, Signup/Login, and Cart/Checkout.",
+    "Remove/replace the \"Order\" / \"Order Now\" tab/section; primary purchase flow should be Add-to-Cart -> Cart/Checkout (still offering WhatsApp vs Zomato at checkout).",
+    "Menu items should display images generated/selected via AI based on the item name/category (e.g., pizza, burger, shakes).",
+    "Add a cart UI indicator (badge/popup) showing item count whenever items are added and persistently in the header/cart entry point.",
+    "Add a Signup/Login page/flow that captures user details (name, email, phone, address) and sends them to the owner (delivery mechanism TBD)."
+  ],
+  "known_issues": [
+    "Deployed site opens to a white screen on multiple devices/browsers; likely frontend crash during load. User requests rebuilding the frontend."
+  ],
+  "isFixRequest": true,
+  "existing_features": [
+    {
+      "id": "feature-create-a-responsive-marketing-website-for-the-pizza-store-named-captain-pizza-with-core-pages-sections-home-hero-ctas-menu-items-prices-about-contact-address-phone-hours-and-an-order-section-that-prominently-offers-whatsapp-ordering-and-zomato-ordering",
+      "title": "Create a responsive marketing website for the pizza store named \"Captain Pizza\" with core pages/sections: Home (hero + CTAs), Menu (items + prices), About, Contact (address/phone/hours), and an \"Order\" section that prominently offers WhatsApp ordering and Zomato ordering.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-coherent-visual-theme-for-the-captain-pizza-site-distinct-colors-typography-spacing-and-component-style-and-apply-it-consistently-across-all-pages-sections-avoid-blue-purple-as-primary-colors",
+      "title": "Implement a coherent visual theme for the \"Captain Pizza\" site (distinct colors, typography, spacing, and component style) and apply it consistently across all pages/sections. Avoid blue/purple as primary colors.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-whatsapp-ordering-flow-provide-an-order-form-that-collects-customer-name-phone-number-delivery-pickup-preference-address-if-delivery-and-free-text-order-details-generate-a-whatsapp-send-message-deep-link-that-pre-fills-the-message-with-the-captured-details-and-opens-whatsapp-or-whatsapp-web-to-send-the-order-to-the-store-s-whatsapp-number",
+      "title": "Add a WhatsApp ordering flow: provide an order form that collects customer name, phone number, delivery/pickup preference, address (if delivery), and free-text order details; generate a WhatsApp \"send message\" deep link that pre-fills the message with the captured details and opens WhatsApp (or WhatsApp Web) to send the order to the store’s WhatsApp number.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-prominent-order-on-zomato-cta-that-redirects-users-to-the-captain-pizza-zomato-listing-to-place-an-order-make-the-zomato-url-configurable-in-one-place",
+      "title": "Add a prominent \"Order on Zomato\" CTA that redirects users to the Captain Pizza Zomato listing to place an order. Make the Zomato URL configurable in one place.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-static-generated-brand-assets-and-use-them-in-the-ui-by-placing-them-under-frontend-public-assets-generated-and-referencing-them-directly-from-the-frontend-no-backend-image-routing",
+      "title": "Add static generated brand assets and use them in the UI by placing them under `frontend/public/assets/generated` and referencing them directly from the frontend (no backend image routing).",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-configured-zomato-listing-url-in-frontend-src-config-siteconfig-ts-to-exactly-https-www-zomato-com-ncr-captain-pizza-1-karawal-nagar-new-delhi-order-and-ensure-all-existing-zomato-ctas-e-g-hero-button-and-checkout-option-open-this-url-in-a-new-tab",
+      "title": "Update the configured Zomato listing URL in `frontend/src/config/siteConfig.ts` to exactly `https://www.zomato.com/ncr/captain-pizza-1-karawal-nagar-new-delhi/order` and ensure all existing Zomato CTAs (e.g., hero button and checkout option) open this URL in a new tab.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-an-add-to-cart-flow-on-the-menu-section-each-menu-item-must-support-selecting-a-quantity-and-adding-removing-items-from-a-cart-and-the-cart-must-show-item-name-unit-price-quantity-and-line-total",
+      "title": "Implement an add-to-cart flow on the Menu section: each menu item must support selecting a quantity and adding/removing items from a cart, and the cart must show item name, unit price, quantity, and line total.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-replace-the-current-dedicated-whatsapp-zomato-ordering-cards-in-frontend-src-components-sections-ordersection-tsx-with-a-single-cart-checkout-ui-no-separate-whatsapp-or-zomato-sections-at-checkout-the-user-must-choose-an-order-method-whatsapp-or-zomato",
+      "title": "Replace the current dedicated WhatsApp/Zomato ordering cards in `frontend/src/components/sections/OrderSection.tsx` with a single cart + checkout UI (no separate WhatsApp or Zomato sections). At checkout, the user must choose an order method: WhatsApp or Zomato.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-for-the-whatsapp-checkout-path-collect-the-required-checkout-details-customer-name-phone-number-delivery-pickup-delivery-address-when-delivery-and-send-a-whatsapp-deep-link-message-to-the-owner-that-includes-customer-details-delivery-address-if-applicable-full-cart-contents-with-quantities-and-prices-any-additional-order-notes-reuse-extend-the-existing-whatsapp-utility-frontend-src-utils-whatsapp-ts-and-remove-reliance-on-the-current-free-text-only-orderdetails-flow",
+      "title": "For the WhatsApp checkout path, collect the required checkout details (customer name, phone number, delivery/pickup, delivery address when delivery) and send a WhatsApp deep link message to the owner that includes: customer details + delivery address (if applicable) + full cart contents with quantities and prices + any additional order notes. Reuse/extend the existing WhatsApp utility (`frontend/src/utils/whatsapp.ts`) and remove reliance on the current free-text-only `orderDetails` flow.",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-for-the-zomato-checkout-path-clicking-continue-to-zomato-must-redirect-the-user-to-siteconfig-zomatourl-new-tab-and-clearly-communicate-that-the-rest-of-the-ordering-and-payment-will-be-completed-on-zomato",
+      "title": "For the Zomato checkout path, clicking 'Continue to Zomato' must redirect the user to `siteConfig.zomatoUrl` (new tab) and clearly communicate that the rest of the ordering and payment will be completed on Zomato.",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-make-the-owner-whatsapp-number-used-for-whatsapp-checkout-configurable-via-siteconfig-whatsappnumber-and-add-a-clear-ui-hint-in-checkout-if-the-configured-number-is-still-a-placeholder-so-the-site-owner-can-replace-it-with-the-real-number",
+      "title": "Make the owner WhatsApp number used for WhatsApp checkout configurable via `siteConfig.whatsappNumber`, and add a clear UI hint in checkout if the configured number is still a placeholder so the site owner can replace it with the real number.",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-site-contact-configuration-in-frontend-src-config-siteconfig-ts-to-use-the-provided-business-details-address-oppo-rajmandir-hyper-market-f-11-main-road-block-d-dayalpur-biharipur-delhi-110090-hours-open-closes-10-pm-and-phone-7725895804-ensure-these-updated-values-appear-anywhere-contact-details-are-rendered-e-g-contact-section-and-footer",
+      "title": "Update the site contact configuration in `frontend/src/config/siteConfig.ts` to use the provided business details: address `Oppo, Rajmandir Hyper Market, F-11, Main Road, Block D, Dayalpur, Biharipur, Delhi, 110090`, hours `Open · Closes 10 pm`, and phone `7725895804`. Ensure these updated values appear anywhere contact details are rendered (e.g., Contact section and footer).",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-configured-store-whatsapp-number-in-frontend-src-config-siteconfig-ts-so-whatsapp-checkout-sends-the-order-to-the-owner-number-7725895804-stored-as-e-164-digits-without-i-e-917725895804",
+      "title": "Update the configured store WhatsApp number in `frontend/src/config/siteConfig.ts` so WhatsApp checkout sends the order to the owner number `7725895804` (stored as E.164 digits without `+`, i.e., `917725895804`).",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-replace-the-hardcoded-menu-items-in-frontend-src-components-sections-menusection-tsx-with-the-full-menu-provided-by-the-user-organized-under-clear-categories-headers-combo-1-including-the-listed-item-description-and-price-combo-2-all-listed-variants-and-prices-sunday-bole-to-any-medium-pizza-499-00-combo-3-combo-4-burgers-wrap-all-items-prices-shakes-moketail-all-items-prices-pizza-all-items-prices-including-the-listed-sub-groups-like-choice-of-jain-crusts-special-offer-classic-veg-category-deluxe-veg-supreme-veg-pasta-garlic-bread-stuff-french-fries-with-size-variant-pricing-as-provided-and-veg-doubles-ensure-each-listed-item-is-add-to-cart-compatible-and-the-displayed-names-prices-match-the-provided-text",
+      "title": "Replace the hardcoded menu items in `frontend/src/components/sections/MenuSection.tsx` with the full menu provided by the user, organized under clear categories/headers: COMBO-1 (including the listed item description and price), COMBO-2 (all listed variants and prices), 'SUNDAY' Bole to (ANY MEDIUM PIZZA ₹499.00), COMBO-3, COMBO-4, BURGERS & WRAP (all items + prices), SHAKES & MOKETAIL (all items + prices), PIZZA (all items + prices including the listed sub-groups like CHOICE OF JAIN CRUSTS, SPECIAL OFFER CLASSIC VEG. CATEGORY, DELUXE VEG., SUPREME VEG.), PASTA, GARLIC BREAD STUFF, FRENCH FRIES (with size/variant pricing as provided), and VEG. DOUBLES. Ensure each listed item is add-to-cart compatible and the displayed names/prices match the provided text.",
+      "reqIds": [
+        "REQ-14"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-change-the-whatsapp-checkout-message-format-in-frontend-src-utils-whatsapp-ts-so-the-owner-receives-an-order-message-similar-in-structure-to-the-user-provided-example-including-a-clear-order-details-section-the-customer-s-name-and-phone-the-order-type-delivery-pickup-the-customer-s-delivery-address-when-delivery-a-fully-itemized-cart-list-showing-quantity-item-name-unit-price-and-line-total-and-a-bill-summary-block-that-includes-subtotal-and-total-if-order-type-is-delivery-include-a-delivery-charge-line-make-the-delivery-fee-configurable-via-siteconfig-and-apply-it-only-when-delivery-end-the-message-with-a-confirmation-line-in-english-that-is-similar-in-intent-to-asking-to-confirm-and-provide-delivery-details-without-copying-the-example-text-verbatim",
+      "title": "Change the WhatsApp checkout message format in `frontend/src/utils/whatsapp.ts` so the owner receives an order message similar in structure to the user-provided example, including: a clear `*ORDER DETAILS:*` section, the customer's name and phone, the order type (delivery/pickup), the customer's delivery address when delivery, a fully itemized cart list showing quantity, item name, unit price, and line total, and a `*BILL SUMMARY:*` block that includes Subtotal and Total. If order type is delivery, include a Delivery charge line (make the delivery fee configurable via `siteConfig`, and apply it only when delivery). End the message with a confirmation line in English that is similar in intent to: asking to confirm and provide delivery details, without copying the example text verbatim.",
+      "reqIds": [
+        "REQ-15"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-convert-the-current-single-long-scrolling-page-into-a-multi-page-site-with-these-routes-pages-home-menu-about-contact-signup-login-and-cart-checkout-each-page-must-render-only-its-own-content-do-not-render-all-sections-on-every-page",
+      "title": "Convert the current single long scrolling page into a multi-page site with these routes/pages: Home, Menu, About, Contact, Signup/Login, and Cart/Checkout. Each page must render only its own content (do not render all sections on every page).",
+      "reqIds": [
+        "REQ-16"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-header-and-footer-navigation-to-use-the-new-page-routes-instead-of-scroll-to-section-behavior-remove-the-existing-order-nav-tab-and-remove-replace-all-order-now-ctas-in-the-header-hero-with-an-add-to-cart-view-cart-focused-flow-e-g-view-cart-or-go-to-checkout",
+      "title": "Update the header and footer navigation to use the new page routes instead of scroll-to-section behavior. Remove the existing 'Order' nav/tab and remove/replace all 'Order Now' CTAs in the header/hero with an 'Add to Cart / View Cart' focused flow (e.g., 'View Cart' or 'Go to Checkout').",
+      "reqIds": [
+        "REQ-17"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-persistent-cart-indicator-in-the-header-that-shows-the-current-cart-item-count-as-a-badge-when-a-user-adds-an-item-to-the-cart-from-the-menu-page-show-immediate-feedback-badge-update-and-a-small-popup-toast-or-similar-that-confirms-the-item-was-added",
+      "title": "Add a persistent cart indicator in the header that shows the current cart item count as a badge. When a user adds an item to the cart from the Menu page, show immediate feedback (badge update and a small popup/toast or similar) that confirms the item was added.",
+      "reqIds": [
+        "REQ-18"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-move-the-existing-cart-checkout-ui-currently-in-the-checkout-order-section-into-the-dedicated-cart-checkout-page-and-ensure-the-checkout-method-selection-remains-whatsapp-opens-whatsapp-with-the-full-structured-order-message-or-zomato-opens-siteconfig-zomatourl-in-a-new-tab-and-explains-ordering-payment-completes-on-zomato",
+      "title": "Move the existing cart + checkout UI (currently in the 'Checkout/Order' section) into the dedicated Cart/Checkout page and ensure the checkout method selection remains: WhatsApp (opens WhatsApp with the full structured order message) or Zomato (opens `siteConfig.zomatoUrl` in a new tab and explains ordering/payment completes on Zomato).",
+      "reqIds": [
+        "REQ-19"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-signup-login-page-that-includes-a-user-details-form-collecting-name-email-phone-number-and-address-on-submit-forward-these-details-to-the-website-owner-by-opening-whatsapp-with-a-pre-filled-message-sent-to-siteconfig-whatsappnumber-containing-the-captured-signup-details",
+      "title": "Add a Signup/Login page that includes a user details form collecting: name, email, phone number, and address. On submit, forward these details to the website owner by opening WhatsApp with a pre-filled message sent to `siteConfig.whatsappNumber` containing the captured signup details.",
+      "reqIds": [
+        "REQ-20"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-ai-generated-product-category-images-for-menu-items-and-display-an-image-thumbnail-on-each-menu-item-card-images-must-be-chosen-automatically-based-on-item-name-category-keywords-e-g-pizza-burger-wrap-shake-pasta-fries-garlic-bread-combo-store-images-as-static-assets-under-frontend-public-assets-generated-and-reference-them-directly-from-the-frontend-no-backend-image-routing",
+      "title": "Add AI-generated product/category images for menu items and display an image thumbnail on each menu item card. Images must be chosen automatically based on item name/category keywords (e.g., pizza, burger, wrap, shake, pasta, fries, garlic bread, combo). Store images as static assets under `frontend/public/assets/generated` and reference them directly from the frontend (no backend image routing).",
+      "reqIds": [
+        "REQ-21"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-replace-the-current-site-logo-with-the-user-uploaded-captain-pizza-logo-image-across-the-site-header-footer-and-any-other-logo-usage-ensure-the-resulting-logo-asset-is-clean-centered-and-readable-at-small-sizes",
+      "title": "Replace the current site logo with the user-uploaded Captain Pizza logo image across the site (header, footer, and any other logo usage). Ensure the resulting logo asset is clean, centered, and readable at small sizes.",
+      "reqIds": [
+        "REQ-22"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-fix-the-white-screen-issue-by-restoring-a-working-react-render-tree-replace-the-current-app-placeholder-which-returns-null-with-the-real-application-shell-that-mounts-tanstack-router-using-the-existing-routetree-so-that-pages-home-menu-about-contact-signup-checkout-render-correctly",
+      "title": "Fix the white-screen issue by restoring a working React render tree: replace the current `App` placeholder (which returns `null`) with the real application shell that mounts TanStack Router using the existing `routeTree` so that pages (Home/Menu/About/Contact/Signup/Checkout) render correctly.",
+      "reqIds": [
+        "REQ-23"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-minimal-user-friendly-runtime-fallback-so-that-if-the-frontend-throws-during-initial-render-users-see-an-english-error-message-with-a-refresh-instruction-instead-of-a-blank-screen",
+      "title": "Add a minimal, user-friendly runtime fallback so that if the frontend throws during initial render, users see an English error message with a refresh instruction instead of a blank screen.",
+      "reqIds": [
+        "REQ-24"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-replace-the-placeholder-app-component-currently-returning-null-with-a-real-application-shell-that-mounts-tanstack-router-using-the-existing-routetree-so-the-site-loads-and-routes-render-home-menu-about-contact-signup-checkout-this-must-be-implemented-without-editing-frontend-src-main-tsx-immutable-by-making-frontend-src-app-tsx-render-the-router",
+      "title": "Replace the placeholder `App` component (currently returning `null`) with a real application shell that mounts TanStack Router using the existing `routeTree` so the site loads and routes render (Home, Menu, About, Contact, Signup, Checkout). This must be implemented without editing `frontend/src/main.tsx` (immutable) by making `frontend/src/App.tsx` render the router.",
+      "reqIds": [
+        "REQ-25"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-minimal-user-friendly-runtime-fallback-so-that-if-the-frontend-throws-during-initial-render-including-router-initialization-users-see-an-english-error-message-with-a-refresh-instruction-instead-of-a-blank-screen",
+      "title": "Add a minimal, user-friendly runtime fallback so that if the frontend throws during initial render (including router initialization), users see an English error message with a refresh instruction instead of a blank screen.",
+      "reqIds": [
+        "REQ-26"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Create a marketing website for the pizza store \"Captain Pizza\".",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Add an order option that lets users place orders by sharing details via WhatsApp.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Add an order option that redirects users to the Captain Pizza Zomato listing to place an order.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Add an add-to-cart + checkout flow; at checkout users choose WhatsApp (send order + customer/contact/address details to owner) or Zomato (redirect to Zomato). Avoid separate WhatsApp/Zomato sections.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Convert the site from a single long page into separate pages (Home, Menu, About, Contact, Signup/Login, Cart/Checkout) with navigation.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Add AI-generated product images for menu items (e.g., pizza, burger) based on item names and display them on the Menu.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Add a Signup/Login option that collects user details (name, email, phone, address) and forwards them to the website owner.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Replace/remove the \"Order\"/\"Order Now\" tab and CTAs and use an Add-to-Cart focused flow instead (cart + checkout).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "Show a cart popup/badge with item count when items are added, and keep the cart count visible in the UI.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-10",
+      "summary": "Update the site logo to the user-provided Captain Pizza logo image.",
+      "reqIds": [],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "Captain Pizza",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

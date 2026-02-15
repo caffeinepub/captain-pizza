@@ -1,0 +1,42 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-replace-the-placeholder-app-component-currently-returning-null-with-a-real-application-shell-that-mounts-tanstack-router-using-the-existing-routetree-so-the-site-loads-and-routes-render-home-menu-about-contact-signup-checkout-this-must-be-implemented-without-editing-frontend-src-main-tsx-immutable-by-making-frontend-src-app-tsx-render-the-router",
+      "featureTitle": "Replace the placeholder `App` component (currently returning `null`) with a real application shell that mounts TanStack Router using the existing `routeTree` so the site loads and routes render (Home, Menu, About, Contact, Signup, Checkout). This must be implemented without editing `frontend/src/main.tsx` (immutable) by making `frontend/src/App.tsx` render the router.",
+      "files": [
+        "frontend/src/App.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-25"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-a-minimal-user-friendly-runtime-fallback-so-that-if-the-frontend-throws-during-initial-render-including-router-initialization-users-see-an-english-error-message-with-a-refresh-instruction-instead-of-a-blank-screen",
+      "featureTitle": "Add a minimal, user-friendly runtime fallback so that if the frontend throws during initial render (including router initialization), users see an English error message with a refresh instruction instead of a blank screen.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/system/RenderErrorBoundary.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-26"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "kind": "build_request",
+  "title": "Fix white-screen by mounting TanStack Router from App and adding a render error fallback",
+  "priority": "high",
+  "requirements": [
+    {
+      "id": "REQ-25",
+      "text": "Replace the placeholder `App` component (currently returning `null`) with a real application shell that mounts TanStack Router using the existing `routeTree` so the site loads and routes render (Home, Menu, About, Contact, Signup, Checkout). This must be implemented without editing `frontend/src/main.tsx` (immutable) by making `frontend/src/App.tsx` render the router.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4",
+          "msg-5"
+        ],
+        "quotes": [
+          "now website not goes live",
+          "yes"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Visiting the deployed site no longer shows a blank/white screen.",
+        "`frontend/src/main.tsx` continues to render `<App />`, and `App` now renders the TanStack Router provider wired to `frontend/src/routeTree.tsx`.",
+        "Direct navigation to `/`, `/menu`, `/about`, `/contact`, `/signup`, and `/checkout` renders the corresponding page content."
+      ]
+    },
+    {
+      "id": "REQ-26",
+      "text": "Add a minimal, user-friendly runtime fallback so that if the frontend throws during initial render (including router initialization), users see an English error message with a refresh instruction instead of a blank screen.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4",
+          "msg-5"
+        ],
+        "quotes": [
+          "now website not goes live",
+          "yes"
+        ]
+      },
+      "acceptanceCriteria": [
+        "If an error occurs during initial render, the UI displays an English message indicating something went wrong and instructing the user to refresh the page.",
+        "The fallback renders instead of a blank/white screen."
+      ]
+    }
+  ],
+  "constraints": [
+    "Do not edit any files under `frontend/src/components/ui` (read-only components).",
+    "Do not edit immutable paths, including `frontend/src/main.tsx`, `frontend/src/hooks/useInternetIdentity.ts(x)`, and `frontend/src/hooks/useActor.ts`. Implement the fix by changing non-immutable files such as `frontend/src/App.tsx`.",
+    "Keep the backend as a single Motoko actor; no backend changes are required for this fix."
+  ],
+  "nonGoals": [
+    "Adding new pages or changing the existing route structure beyond wiring up the already-defined `routeTree`.",
+    "Implementing new backend methods or persistence.",
+    "Changing branding, menu data, checkout behavior, or site configuration as part of this fix."
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [],
+    "goalsToRemove": [],
+    "preferencesToAdd": [],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
+  }
+}
